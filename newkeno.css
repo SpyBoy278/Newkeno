@@ -1,0 +1,58 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+#numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.number {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #ddd;
+    cursor: pointer;
+    user-select: none;
+}
+
+.number.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#drawn-numbers {
+    margin-top: 20px;
+}
+
+.drawn {
+    display: inline-block;
+    margin: 3px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 50%;
+    background-color: #2196F3;
+    color: white;
+}
