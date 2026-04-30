@@ -35,11 +35,34 @@ function drawNumbers(){
 
 // Compare matches
 function countMatches(player, drawn){
-    return player.filter(n => drawn.includes(n)).length;
+    return player.filter(n => drawn.includes(n));
 }
 
 // Simple payout table
 const payouts = {1:1, 2:3, 3:10, 4:50, 5:200};
+
+// Animate drawn numbers
+function animateDraw(drawn, matches, bet) {
+    drawnDiv.innerHTML = "Drawn Numbers: ";
+    let i = 0;
+
+    let interval = setInterval(() => {
+        if(i >= drawn.length){
+            clearInterval(interval);
+            // Show result popup
+            let win = (payouts[matches.length] || 0) * bet;
+            alert(`🎉 You matched ${matches.length} numbers! You won $${win.toFixed(2)}!`);
+            return;
+        }
+        const n = drawn[i];
+        let d = document.createElement('span');
+        d.textContent = n;
+        d.classList.add('drawn');
+        if(selectedNumbers.includes(n)) d.style.backgroundColor = 'green';
+        drawnDiv.appendChild(d);
+        i++;
+    }, 200); // 200ms per number
+}
 
 playBtn.addEventListener('click', () => {
     if(selectedNumbers.length === 0){
@@ -54,17 +77,6 @@ playBtn.addEventListener('click', () => {
 
     let drawn = drawNumbers();
     let matches = countMatches(selectedNumbers, drawn);
-    let win = (payouts[matches] || 0) * bet;
 
-    // Display drawn numbers
-    drawnDiv.innerHTML = "Drawn Numbers: ";
-    drawn.forEach(n => {
-        let d = document.createElement('span');
-        d.textContent = n;
-        d.classList.add('drawn');
-        drawnDiv.appendChild(d);
-    });
-
-    // Display results
-    resultsDiv.innerHTML = `You matched ${matches} numbers. You won $${win.toFixed(2)}!`;
+    animateDraw(drawn, matches, bet);
 });
